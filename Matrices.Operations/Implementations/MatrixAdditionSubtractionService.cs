@@ -1,40 +1,64 @@
 ﻿using System;
+using Matrices.Infrastructure.ChainOfHandlers.Interfaces;
 using Matrices.Infrastructure.Core.Models;
 using Matrices.Operations.Interfaces;
-using Matrices.Operations.Validators.MatrixAdditionSubtractionValidator.Implementations;
-using Matrices.Operations.Validators.MatrixAdditionSubtractionValidator.Interfaces;
+using MatrixValidationContext = Matrices.Operations.MatrixOperationsValidation.MatrixAdditionSubtractionValidation.Models.MatrixAdditionSubtractionValidationContext;
+using MatrixValidationResult = Matrices.Operations.MatrixOperationsValidation.MatrixAdditionSubtractionValidation.Models.MatrixAdditionSubtractionValidationResult;
 
 namespace Matrices.Operations.Implementations
 {
     internal class MatrixAdditionSubtractionService : IMatrixAdditionSubtractionService
     {
-        private readonly IMatrixAdditionSubtractionValidatorSaga _validatorSaga;
+        private readonly IChainService<MatrixValidationContext, MatrixValidationResult> _validationChainService;
 
-        public MatrixAdditionSubtractionService(IMatrixAdditionSubtractionValidatorSaga validatorSaga)
+        public MatrixAdditionSubtractionService(IChainService<MatrixValidationContext, MatrixValidationResult> validationChainService)
         {
-            _validatorSaga = validatorSaga;
+            _validationChainService = validationChainService;
         }
 
-        public Matrix Add(Matrix first, Matrix second)
+        public Matrix Add(
+            Matrix first, 
+            Matrix second)
         {
-            var context = new MatrixAdditionSubtractionValidatorSagaContext(first, second);
-            var result = _validatorSaga.IsMatricesValid(context);
+            var result = IsValid(first, second);
 
             if (!result.IsValid)
-                throw new ArgumentException(result.ValidationMessage);
+            {
+                throw new ArgumentException(result.Error);
+            }
 
             return Calculate(first, second, (a, b) => a + b);
         }
 
-        public Matrix Subtract(Matrix first, Matrix second)
+        public Matrix Subtract(
+            Matrix first, 
+            Matrix second)
         {
-            var context = new MatrixAdditionSubtractionValidatorSagaContext(first, second);
-            var result = _validatorSaga.IsMatricesValid(context);
+            var result = IsValid(first, second);
 
             if (!result.IsValid)
-                throw new ArgumentException(result.ValidationMessage);
+            {
+                throw new ArgumentException(result.Error);
+            }
 
             return Calculate(first, second, (a, b) => a - b);
+        }
+
+        private (bool IsValid, string Error) IsValid(
+            Matrix first, 
+            Matrix second)
+        {
+            var context = new MatrixValidationContext
+            {
+                First = first,
+                Second = second
+            };
+
+            var result = new MatrixValidationResult();
+
+            _validationChainService.Run(context, result);
+
+            return (result.IsValid, result.Error);
         }
 
         private static Matrix Calculate(

@@ -1,7 +1,9 @@
-﻿namespace Matrices.Infrastructure.Saga.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Matrices.Infrastructure.Saga.Interfaces
 {
     public interface ISagaCommandHandler<in TSagaCommand>
     {
-        bool Handle(TSagaCommand command);
+        Task<bool> HandleAsync(TSagaCommand command);
     }
 }

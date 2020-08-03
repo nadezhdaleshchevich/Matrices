@@ -9,6 +9,7 @@ namespace Matrices.Infrastructure.Saga.Extensions
         public static void AddSaga(this IServiceCollection services)
         {
             services.AddTransient(typeof(ISagaRunStrategy<>), typeof(SagaRunWhileTrueStrategy<>));
+            services.AddTransient(typeof(ISyncSagaRunStrategy<>), typeof(SyncSagaRunWhileTrueStrategy<>));
         }
     }
 }

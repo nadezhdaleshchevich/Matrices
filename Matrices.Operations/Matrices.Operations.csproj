@@ -13,10 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validators\MatrixMultiplicationValidator\Commands\" />
-    <Folder Include="Validators\MatrixMultiplicationValidator\Implementations\" />
-    <Folder Include="Validators\MatrixMultiplicationValidator\Interfaces\" />
-    <Folder Include="Validators\MatrixMultiplicationValidator\Extensions\" />
+    <Folder Include="MatrixOperationsValidation\MatrixMultiplicationValidator\" />
   </ItemGroup>
 
 </Project>

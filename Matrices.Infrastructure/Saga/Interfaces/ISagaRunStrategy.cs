@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Matrices.Infrastructure.Saga.Interfaces
 {
     public interface ISagaRunStrategy<TSagaContext>
     {
-        void Run(TSagaContext context);
-        void AddCommandHandler(Func<TSagaContext, bool> handler);
+        Task RunAsync(TSagaContext context);
+        void AddCommandHandler(Func<TSagaContext, Task<bool>> handler);
     }
 }
