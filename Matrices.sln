@@ -7,13 +7,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A98114C2-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{55815AA4-AA1F-4EA8-AF8C-0F151E52B988}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Debug", "Debug", "{FFD7967B-66FF-45CA-87E5-982B0ACC7688}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Matrices.Infrastructure", "Matrices.Infrastructure\Matrices.Infrastructure.csproj", "{DD90BB8E-7D7D-48BA-984C-48EAFAE3386C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D8332682-EE7D-457E-8A8A-ECFD822B5F88}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainAppConsoleUI", "MainAppConsoleUI\MainAppConsoleUI.csproj", "{58C93364-5DC4-4C10-AB02-6213CDCA6F66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MainAppConsoleUI", "MainAppConsoleUI\MainAppConsoleUI.csproj", "{58C93364-5DC4-4C10-AB02-6213CDCA6F66}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

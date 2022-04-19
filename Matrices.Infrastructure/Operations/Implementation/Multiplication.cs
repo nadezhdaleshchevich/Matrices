@@ -1,5 +1,6 @@
 ﻿using System;
 using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Operations.Extensions;
 using Matrices.Infrastructure.Operations.Interfaces;
 
 namespace Matrices.Infrastructure.Operations.Implementation
@@ -12,16 +13,9 @@ namespace Matrices.Infrastructure.Operations.Implementation
 
             int m = matrixA.M;
             int n = matrixA.N;
-
             var matrixB = new Matrix(m, n);
 
-            for (int i = 1; i <= m; i++)
-            {
-                for (int j = 1; j <= n; j++)
-                {
-                    matrixB[i, j] = matrixA[i, j] * number;
-                }
-            }
+            matrixB.ForEach((i, j) => matrixA[i, j] * number);
 
             return matrixB;
         }
@@ -36,19 +30,19 @@ namespace Matrices.Infrastructure.Operations.Implementation
             int m = matrixA.M;
             int n = matrixA.N;
             int k = matrixB.N;
-
             var matrixC = new Matrix(m, k);
 
-            for (int i = 1; i <= m; i++)
+            matrixC.ForEach((i, j) =>
             {
-                for (int j = 1; j <= k; j++)
+                double sum = 0;
+
+                for (int l = 1; l <= n; l++)
                 {
-                    for (int l = 1; l <= n; l++)
-                    {
-                        matrixC[i, j] += matrixA[i, l] * matrixB[l, j];
-                    }
+                    sum += matrixA[i, l] * matrixB[l, j];
                 }
-            }
+
+                return sum;
+            });
 
             return matrixC;
         }

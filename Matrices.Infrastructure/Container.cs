@@ -33,6 +33,7 @@ namespace Matrices.Infrastructure
             builder.RegisterType<Addition>().As<IAddition>().InstancePerLifetimeScope();
             builder.RegisterType<Subtraction>().As<ISubtraction>().InstancePerLifetimeScope();
             builder.RegisterType<Multiplication>().As<IMultiplication>().InstancePerLifetimeScope();
+            builder.RegisterType<Transposition>().As<ITransposition>().InstancePerLifetimeScope();
         }
     }
 }

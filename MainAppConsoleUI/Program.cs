@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using Matrices.Infrastructure.Implementation;
+using Matrices.Infrastructure.Operations.Extensions;
 using Matrices.Infrastructure.Models;
 
 namespace MainAppConsoleUI

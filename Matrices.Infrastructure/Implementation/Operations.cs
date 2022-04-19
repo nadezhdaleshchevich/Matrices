@@ -5,25 +5,25 @@ namespace Matrices.Infrastructure.Implementation
 {
     public static class Operations
     {
-        public static Matrix Transpose(this Matrix matrixA)
-        {
-            if (matrixA == null) throw new ArgumentNullException(nameof(matrixA));
+        //public static Matrix Transpose(this Matrix matrixA)
+        //{
+        //    if (matrixA == null) throw new ArgumentNullException(nameof(matrixA));
 
-            int m = matrixA.N;
-            int n = matrixA.M;
+        //    int m = matrixA.N;
+        //    int n = matrixA.M;
 
-            var matrixB = new Matrix(m, n);
+        //    var matrixB = new Matrix(m, n);
 
-            for (int i = 1; i <= m; i++)
-            {
-                for (int j = 1; j <= n; j++)
-                {
-                    matrixB[i, j] = matrixA[j, i];
-                }
-            }
+        //    for (int i = 1; i <= m; i++)
+        //    {
+        //        for (int j = 1; j <= n; j++)
+        //        {
+        //            matrixB[i, j] = matrixA[j, i];
+        //        }
+        //    }
 
-            return matrixB;
-        }
+        //    return matrixB;
+        //}
 
         public static double Determinant(SquareMatrix matrixA)
         {
