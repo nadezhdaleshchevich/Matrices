@@ -1,5 +1,6 @@
 ﻿using System;
 using Autofac;
+using Matrices.Infrastructure.Implementation;
 using Matrices.Infrastructure.Operations.Interfaces;
 
 namespace Matrices.Infrastructure.Models
