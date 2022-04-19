@@ -69,55 +69,72 @@ namespace MainAppConsoleUI
             //Console.WriteLine($"{nameof(matrixA)}^T:");
             //OutputMatrix(matrixA.Transpose());
 
-            var matrixA = new SquareMatrix(3);
+            //var matrixA = new SquareMatrix(3);
 
-            matrixA[1, 1] = 1;
-            matrixA[1, 2] = 2;
-            matrixA[1, 3] = 1;
+            //matrixA[1, 1] = 1;
+            //matrixA[1, 2] = 2;
+            //matrixA[1, 3] = 1;
 
-            matrixA[2, 1] = 3;
-            matrixA[2, 2] = -1;
-            matrixA[2, 3] = -1;
+            //matrixA[2, 1] = 3;
+            //matrixA[2, 2] = -1;
+            //matrixA[2, 3] = -1;
 
-            matrixA[3, 1] = -2;
-            matrixA[3, 2] = 2;
-            matrixA[3, 3] = 3;
+            //matrixA[3, 1] = -2;
+            //matrixA[3, 2] = 2;
+            //matrixA[3, 3] = 3;
 
-            OutputMatrix(matrixA);
+            //OutputMatrix(matrixA);
 
-            var detA = matrixA.CalculateDeterminant();
-            Console.WriteLine(detA);
+            //var detA = matrixA.CalculateDeterminant();
+            //Console.WriteLine(detA);
 
-            var matrixB = new SquareMatrix(4);
+            //var matrixB = new SquareMatrix(4);
 
-            matrixB[1, 1] = 1;
-            matrixB[1, 2] = -2;
-            matrixB[1, 3] = 0;
-            matrixB[1, 4] = 0;
+            //matrixB[1, 1] = 1;
+            //matrixB[1, 2] = -2;
+            //matrixB[1, 3] = 0;
+            //matrixB[1, 4] = 0;
 
-            matrixB[2, 1] = 3;
-            matrixB[2, 2] = -1;
-            matrixB[2, 3] = -1;
-            matrixB[2, 4] = 2;
+            //matrixB[2, 1] = 3;
+            //matrixB[2, 2] = -1;
+            //matrixB[2, 3] = -1;
+            //matrixB[2, 4] = 2;
 
-            matrixB[3, 1] = -2;
-            matrixB[3, 2] = 2;
-            matrixB[3, 3] = 3;
-            matrixB[3, 4] = 1;
+            //matrixB[3, 1] = -2;
+            //matrixB[3, 2] = 2;
+            //matrixB[3, 3] = 3;
+            //matrixB[3, 4] = 1;
 
-            matrixB[4, 1] = 1;
-            matrixB[4, 2] = 1;
-            matrixB[4, 3] = 2;
-            matrixB[4, 4] = 2;
+            //matrixB[4, 1] = 1;
+            //matrixB[4, 2] = 1;
+            //matrixB[4, 3] = 2;
+            //matrixB[4, 4] = 2;
 
-            OutputMatrix(matrixB);
+            //OutputMatrix(matrixB);
 
-            var detB = matrixB.CalculateDeterminant();
-            Console.WriteLine(detB);
+            //var detB = matrixB.CalculateDeterminant();
+            //Console.WriteLine(detB);
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
+            //double epsilon = 0.001;
+            //double equal = 1.8949771189399217;
+            //double one = 1.8943771189399217;
+            //if (EqualTo(equal, one, epsilon))
+            //{
+            //    Console.WriteLine("The decimal objects are equal.");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("The decimal objects are NOT equal.");
+            //}
 
+            //Console.ReadKey();
         }
+
+        //public static bool EqualTo(double value1, double value2, double epsilon)
+        //{
+        //    return Math.Abs(value1 - value2) < epsilon;
+        //}
     }
 }
