@@ -1,11 +1,23 @@
 ﻿using System;
-using Matrices.Infrastructure.Implementation;
+using Autofac;
+using Matrices.Infrastructure.Operations.Interfaces;
 
 namespace Matrices.Infrastructure.Models
 {
     public class Matrix
     {
+        private static readonly IAddition Addition;
+        private static readonly ISubtraction Subtraction;
+        private static readonly IMultiplication Multiplication;
+
         private readonly double[][] _source;
+
+        static Matrix()
+        {
+            Addition = Container.Instance.Resolve<IAddition>();
+            Subtraction = Container.Instance.Resolve<ISubtraction>();
+            Multiplication = Container.Instance.Resolve<IMultiplication>();
+        }
 
         public Matrix(int m, int n)
         {
@@ -47,27 +59,27 @@ namespace Matrices.Infrastructure.Models
 
         public static Matrix operator +(Matrix matrixA, Matrix matrixB)
         {
-            return ArithmeticOperations.Add(matrixA, matrixB);
+            return Addition.Add(matrixA, matrixB);
         }
 
         public static Matrix operator -(Matrix matrixA, Matrix matrixB)
         {
-            return ArithmeticOperations.Subtract(matrixA, matrixB);
+            return Subtraction.Subtract(matrixA, matrixB);
         }
 
         public static Matrix operator *(Matrix matrixA, double number)
         {
-            return ArithmeticOperations.Multiply(matrixA, number);
+            return Multiplication.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(double number, Matrix matrixA)
         {
-            return ArithmeticOperations.Multiply(matrixA, number);
+            return Multiplication.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(Matrix matrixA, Matrix matrixB)
         {
-            return ArithmeticOperations.Multiply(matrixA, matrixB);
+            return Multiplication.Multiply(matrixA, matrixB);
         }
     }
 }
