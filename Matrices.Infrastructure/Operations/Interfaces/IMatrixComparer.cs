@@ -4,6 +4,6 @@ namespace Matrices.Infrastructure.Operations.Interfaces
 {
     internal interface IMatrixComparer
     {
-        bool IsEqual(Matrix matrixA, Matrix matrixB);
+        bool Equals(Matrix matrixA, Matrix matrixB);
     }
 }

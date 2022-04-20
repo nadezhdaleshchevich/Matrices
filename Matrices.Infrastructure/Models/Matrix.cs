@@ -1,24 +1,11 @@
 ﻿using System;
-using Autofac;
-using Matrices.Infrastructure.Implementation;
-using Matrices.Infrastructure.Operations.Interfaces;
+using Matrices.Infrastructure.Operations.Extensions;
 
 namespace Matrices.Infrastructure.Models
 {
     public class Matrix
     {
-        private static readonly IAddition Addition;
-        private static readonly ISubtraction Subtraction;
-        private static readonly IMultiplication Multiplication;
-
         private readonly double[][] _source;
-
-        static Matrix()
-        {
-            Addition = Container.Instance.Resolve<IAddition>();
-            Subtraction = Container.Instance.Resolve<ISubtraction>();
-            Multiplication = Container.Instance.Resolve<IMultiplication>();
-        }
 
         public Matrix(int m, int n)
         {
@@ -58,29 +45,59 @@ namespace Matrices.Infrastructure.Models
             }
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(_source, M, N);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Matrix);
+        }
+
+        public bool Equals(Matrix matrix)
+        {
+            if (matrix == null)
+            {
+                return false;
+            }
+
+            return Operation.Equals(this, matrix);
+        }
+
         public static Matrix operator +(Matrix matrixA, Matrix matrixB)
         {
-            return Addition.Add(matrixA, matrixB);
+            return Operation.Add(matrixA, matrixB);
         }
 
         public static Matrix operator -(Matrix matrixA, Matrix matrixB)
         {
-            return Subtraction.Subtract(matrixA, matrixB);
+            return Operation.Subtract(matrixA, matrixB);
         }
 
         public static Matrix operator *(Matrix matrixA, double number)
         {
-            return Multiplication.Multiply(matrixA, number);
+            return Operation.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(double number, Matrix matrixA)
         {
-            return Multiplication.Multiply(matrixA, number);
+            return Operation.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(Matrix matrixA, Matrix matrixB)
         {
-            return Multiplication.Multiply(matrixA, matrixB);
+            return Operation.Multiply(matrixA, matrixB);
+        }
+
+        public static bool operator ==(Matrix matrixA, Matrix matrixB)
+        {
+            return Operation.Equals(matrixA, matrixB);
+        }
+
+        public static bool operator !=(Matrix matrixA, Matrix matrixB)
+        {
+            return !Operation.Equals(matrixA, matrixB);
         }
     }
 }

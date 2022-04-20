@@ -8,14 +8,19 @@ namespace Matrices.Infrastructure.Operations.Implementation
     {
         private const double Epsilon = 0.001;
 
-        public bool IsEqual(Matrix matrixA, Matrix matrixB)
+        public bool Equals(Matrix matrixA, Matrix matrixB)
         {
-            if (matrixA == null) throw new ArgumentNullException(nameof(matrixA));
-            if (matrixB == null) throw new ArgumentNullException(nameof(matrixB));
+            if (ReferenceEquals(matrixA, null) && ReferenceEquals(matrixB, null))
+                throw new ArgumentNullException($"{nameof(matrixA)}, {nameof(matrixB)}");
 
             if (ReferenceEquals(matrixA, matrixB))
             {
                 return true;
+            }
+            else if (!ReferenceEquals(matrixA, null) && ReferenceEquals(matrixB, null)
+                     || ReferenceEquals(matrixA, null) && !ReferenceEquals(matrixB, null))
+            {
+                return false;
             }
             else if (matrixA.M != matrixB.M || matrixA.N != matrixB.N)
             {

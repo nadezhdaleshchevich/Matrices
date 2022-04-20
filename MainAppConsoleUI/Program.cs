@@ -114,8 +114,7 @@ namespace MainAppConsoleUI
 
             //var detB = matrixB.CalculateDeterminant();
             //Console.WriteLine(detB);
-
-            //Console.ReadKey();
+\
 
             //double epsilon = 0.001;
             //double equal = 1.8949771189399217;
@@ -129,7 +128,34 @@ namespace MainAppConsoleUI
             //    Console.WriteLine("The decimal objects are NOT equal.");
             //}
 
-            //Console.ReadKey();
+
+            var matrixA = new Matrix(3, 2);
+
+            matrixA[1, 1] = 2;
+            matrixA[1, 2] = 1;
+
+            matrixA[2, 1] = -3;
+            matrixA[2, 2] = 0;
+
+            matrixA[3, 1] = 4;
+            matrixA[3, 2] = -1;
+
+            OutputMatrix(matrixA);
+
+            var matrixB = new Matrix(3, 2);
+
+            matrixB[1, 1] = 2;
+            matrixB[1, 2] = 1;
+
+            matrixB[2, 1] = -3;
+            matrixB[2, 2] = 0;
+
+            matrixB[3, 1] = 4;
+            matrixB[3, 2] = -1;
+
+            OutputMatrix(matrixB);
+
+            Console.ReadKey();
         }
 
         //public static bool EqualTo(double value1, double value2, double epsilon)
