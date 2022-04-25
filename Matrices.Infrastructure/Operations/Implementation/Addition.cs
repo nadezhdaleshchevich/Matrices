@@ -16,7 +16,7 @@ namespace Matrices.Infrastructure.Operations.Implementation
             if (matrixA.N != matrixB.N) throw new ArgumentException(nameof(matrixB));
 
             int m = matrixA.M;
-            int n = matrixB.N;
+            int n = matrixA.N;
             var matrixC = new Matrix(m, n);
 
             matrixC.ForEach((i, j) => matrixA[i, j] + matrixB[i, j]);

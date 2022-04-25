@@ -2,8 +2,8 @@
 
 namespace Matrices.Infrastructure.Operations.Interfaces
 {
-    internal interface IMatrixComparer
+    internal interface IDeterminantCalculator
     {
-        bool Equals(Matrix matrixA, Matrix matrixB);
+        double Calculate(SquareMatrix matrixA);
     }
 }

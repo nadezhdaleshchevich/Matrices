@@ -3,7 +3,7 @@ using Matrices.Infrastructure.Operations.Extensions;
 
 namespace Matrices.Infrastructure.Models
 {
-    public class Matrix
+    public class Matrix : IEquatable<Matrix>
     {
         private readonly double[][] _source;
 
@@ -57,37 +57,32 @@ namespace Matrices.Infrastructure.Models
 
         public bool Equals(Matrix matrix)
         {
-            if (matrix == null)
-            {
-                return false;
-            }
-
             return Operation.Equals(this, matrix);
         }
 
         public static Matrix operator +(Matrix matrixA, Matrix matrixB)
         {
-            return Operation.Add(matrixA, matrixB);
+            return Calculator.Add(matrixA, matrixB);
         }
 
         public static Matrix operator -(Matrix matrixA, Matrix matrixB)
         {
-            return Operation.Subtract(matrixA, matrixB);
+            return Calculator.Subtract(matrixA, matrixB);
         }
 
         public static Matrix operator *(Matrix matrixA, double number)
         {
-            return Operation.Multiply(matrixA, number);
+            return Calculator.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(double number, Matrix matrixA)
         {
-            return Operation.Multiply(matrixA, number);
+            return Calculator.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(Matrix matrixA, Matrix matrixB)
         {
-            return Operation.Multiply(matrixA, matrixB);
+            return Calculator.Multiply(matrixA, matrixB);
         }
 
         public static bool operator ==(Matrix matrixA, Matrix matrixB)
@@ -97,7 +92,7 @@ namespace Matrices.Infrastructure.Models
 
         public static bool operator !=(Matrix matrixA, Matrix matrixB)
         {
-            return !Operation.Equals(matrixA, matrixB);
+            return !(matrixA == matrixB);
         }
     }
 }
