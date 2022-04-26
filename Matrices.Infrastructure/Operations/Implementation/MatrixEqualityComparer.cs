@@ -7,7 +7,7 @@ namespace Matrices.Infrastructure.Operations.Implementation
 {
     internal class MatrixEqualityComparer : IEqualityComparer<Matrix>
     {
-        private const double Epsilon = 0.0001;
+        private const double Epsilon = 0.000001;
 
         public bool Equals(Matrix matrixA, Matrix matrixB)
         {

@@ -10,8 +10,9 @@ namespace Matrices.Infrastructure.Operations.Implementation
         public SquareMatrix Create(SquareMatrix matrixA, int row, int column)
         {
             if (matrixA == null) throw new ArgumentNullException(nameof(matrixA));
-            if (row < 1 && row > matrixA.M) throw new ArgumentException(nameof(row));
-            if (column < 1 && column > matrixA.N) throw new ArgumentException(nameof(column));
+            if (matrixA.N < 3) throw new ArgumentException(nameof(matrixA.N));
+            if (row < 1 || row > matrixA.M) throw new ArgumentOutOfRangeException(nameof(row));
+            if (column < 1 || column > matrixA.N) throw new ArgumentOutOfRangeException(nameof(column));
 
             int n = matrixA.N - 1;
             var algebraicAddition = new SquareMatrix(n);

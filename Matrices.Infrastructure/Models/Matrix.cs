@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Matrices.Infrastructure.Operations.Extensions;
 
 namespace Matrices.Infrastructure.Models
@@ -23,25 +25,55 @@ namespace Matrices.Infrastructure.Models
             }
         }
 
+        public Matrix(IEnumerable<double[]> source)
+        {
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (source.First() == null) throw new ArgumentNullException(nameof(source));
+            if (source.Any(row => row.Length != source.First().Length)) throw new ArgumentException(nameof(source));
+
+            M = source.Count();
+            N = source.First().Length;
+
+            _source = new double[M][];
+
+            using (var enumerator = source.GetEnumerator())
+            {
+                enumerator.MoveNext();
+
+                for (int i = 0; i < M; i++, enumerator.MoveNext())
+                {
+                    _source[i] = new double[N];
+
+                    for (int j = 0; j < N; j++)
+                    {
+                        if (enumerator.Current != null)
+                        {
+                            _source[i][j] = enumerator.Current[j];
+                        }
+                    }
+                }
+            }
+        }
+
         public int M { get; }
 
         public int N { get; }
 
-        public virtual double this[int m, int n]
+        public virtual double this[int i, int j]
         {
             get
             {
-                if (m < 1 || m > M) throw new IndexOutOfRangeException(nameof(m));
-                if (n < 1 || n > N) throw new IndexOutOfRangeException(nameof(n));
+                if (i < 1 || i > M) throw new IndexOutOfRangeException(nameof(i));
+                if (j < 1 || j > N) throw new IndexOutOfRangeException(nameof(j));
 
-                return _source[--m][--n];
+                return _source[--i][--j];
             }
             set
             {
-                if (m < 1 || m > M) throw new IndexOutOfRangeException(nameof(m));
-                if (n < 1 || n > N) throw new IndexOutOfRangeException(nameof(n));
+                if (i < 1 || i > M) throw new IndexOutOfRangeException(nameof(i));
+                if (j < 1 || j > N) throw new IndexOutOfRangeException(nameof(j));
 
-                _source[--m][--n] = value;
+                _source[--i][--j] = value;
             }
         }
 

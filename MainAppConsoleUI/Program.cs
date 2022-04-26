@@ -23,34 +23,45 @@ namespace MainAppConsoleUI
 
         static void Main(string[] args)
         {
-            var matrixA = new Matrix(3, 2);
-
-            matrixA[1, 1] = 2;
-            matrixA[1, 2] = 1;
-
-            matrixA[2, 1] = -3;
-            matrixA[2, 2] = 0;
-
-            matrixA[3, 1] = 4;
-            matrixA[3, 2] = -1;
-
-            var matrixB = new Matrix(3, 2);
-
-            matrixB[1, 1] = 1;
-            matrixB[1, 2] = 1;
-
-            matrixB[2, 1] = -3;
-            matrixB[2, 2] = 0;
-
-            matrixB[3, 1] = 4;
-            matrixB[3, 2] = -1;
+            var matrixA = new Matrix(
+                new double[3][]
+                {
+                    new double[] {1, 2},
+                    new double[] {3, 4},
+                    new double[] {5, 6}
+                });
 
             Console.WriteLine($"{nameof(matrixA)}:");
             OutputMatrix(matrixA);
-            Console.WriteLine($"{nameof(matrixB)}:");
-            OutputMatrix(matrixB);
 
-            Console.WriteLine(matrixA != matrixB);
+            //var matrixA = new Matrix(3, 2);
+
+            //matrixA[1, 1] = 2;
+            //matrixA[1, 2] = 1;
+
+            //matrixA[2, 1] = -3;
+            //matrixA[2, 2] = 0;
+
+            //matrixA[3, 1] = 4;
+            //matrixA[3, 2] = -1;
+
+            //var matrixB = new Matrix(3, 2);
+
+            //matrixB[1, 1] = 1;
+            //matrixB[1, 2] = 1;
+
+            //matrixB[2, 1] = -3;
+            //matrixB[2, 2] = 0;
+
+            //matrixB[3, 1] = 4;
+            //matrixB[3, 2] = -1;
+
+            //Console.WriteLine($"{nameof(matrixA)}:");
+            //OutputMatrix(matrixA);
+            //Console.WriteLine($"{nameof(matrixB)}:");
+            //OutputMatrix(matrixB);
+
+            //Console.WriteLine(matrixA != matrixB);
 
 
             //var matrixB = new Matrix(2, 3);
