@@ -4,7 +4,7 @@ using Matrices.Infrastructure.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Xunit;
 
-namespace Matrices.Infrastructure.Tests.Operations
+namespace Matrices.Infrastructure.Tests.Operations.Implementation
 {
     public class AlgebraicAdditionTests
     {

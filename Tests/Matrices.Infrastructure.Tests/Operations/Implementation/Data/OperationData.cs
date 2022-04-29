@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Matrices.Infrastructure.Models;
 
-namespace Matrices.Infrastructure.Tests.Operations.Data
+namespace Matrices.Infrastructure.Tests.Operations.Implementation.Data
 {
     public class OperationData
     {

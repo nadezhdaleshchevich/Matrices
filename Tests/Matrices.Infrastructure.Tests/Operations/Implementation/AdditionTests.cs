@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Matrices.Infrastructure.Models;
 using Matrices.Infrastructure.Operations.Implementation;
-using Matrices.Infrastructure.Tests.Operations.Data;
+using Matrices.Infrastructure.Tests.Operations.Implementation.Data;
 using Xunit;
 
-namespace Matrices.Infrastructure.Tests.Operations
+namespace Matrices.Infrastructure.Tests.Operations.Implementation
 {
     public class AdditionTests
     {

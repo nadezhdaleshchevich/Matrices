@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Matrices.Infrastructure.Models;
 
 namespace Matrices.Infrastructure.Operations.Implementation
 {
     internal class MatrixEqualityComparer : IEqualityComparer<Matrix>
     {
-        private const double Epsilon = 0.000001;
+        private const double Epsilon = 0.00000000001;
 
         public bool Equals(Matrix matrixA, Matrix matrixB)
         {

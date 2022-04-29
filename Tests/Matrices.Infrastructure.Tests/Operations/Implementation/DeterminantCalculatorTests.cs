@@ -5,7 +5,7 @@ using Matrices.Infrastructure.Operations.Interfaces;
 using Moq;
 using Xunit;
 
-namespace Matrices.Infrastructure.Tests.Operations
+namespace Matrices.Infrastructure.Tests.Operations.Implementation
 {
     public class DeterminantCalculatorTests
     {
@@ -63,7 +63,7 @@ namespace Matrices.Infrastructure.Tests.Operations
         }
 
         [Fact]
-        public void Calculate_When_NIsOne()
+        public void Calculate_When_NIsOne_DeterminantFor1X1CalculatorIsCalled()
         {
             var matrixA = new SquareMatrix(1);
 
@@ -76,7 +76,7 @@ namespace Matrices.Infrastructure.Tests.Operations
         }
 
         [Fact]
-        public void Calculate_When_NIsTwo()
+        public void Calculate_When_NIsTwo_DeterminantFor2X2CalculatorIsCalled()
         {
             var matrixA = new SquareMatrix(2);
 
@@ -89,7 +89,7 @@ namespace Matrices.Infrastructure.Tests.Operations
         }
 
         [Fact]
-        public void Calculate_When_NIsThree()
+        public void Calculate_When_NIsThree_DeterminantFor3X3CalculatorIsCalled()
         {
             var matrixA = new SquareMatrix(3);
 
@@ -102,7 +102,7 @@ namespace Matrices.Infrastructure.Tests.Operations
         }
 
         [Fact]
-        public void Calculate_When_NIsFour()
+        public void Calculate_When_NIsFour_DeterminantFor3X3CalculatorAndAlgebraicAdditionAreCalled()
         {
             var matrixA = new SquareMatrix(4);
 
