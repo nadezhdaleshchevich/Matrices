@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Matrices.Infrastructure\Matrices.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Core\Matrices.Infrastructure\Matrices.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
