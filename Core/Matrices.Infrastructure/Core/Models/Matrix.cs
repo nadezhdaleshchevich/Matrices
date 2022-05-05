@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Matrices.Infrastructure.Operations.Extensions;
 
-namespace Matrices.Infrastructure.Models
+namespace Matrices.Infrastructure.Core.Models
 {
-    public class Matrix : IEquatable<Matrix>
+    public abstract class Matrix : IEquatable<Matrix>, ICloneable
     {
         private readonly double[][] _source;
 
-        public Matrix(int m, int n)
+        protected Matrix(int m, int n)
         {
             if (n < 1) throw new ArgumentException($"The {nameof(n)} can not be less than 1.");
             if (m < 1) throw new ArgumentException($"The {nameof(m)} can not be less than 1.");
@@ -25,10 +25,10 @@ namespace Matrices.Infrastructure.Models
             }
         }
 
-        public Matrix(IEnumerable<double[]> source)
+        protected Matrix(IEnumerable<double[]> source)
         {
             if (source == null) throw new ArgumentNullException(nameof(source));
-            if (source.First() == null) throw new ArgumentNullException(nameof(source));
+            if (source.FirstOrDefault() == null) throw new ArgumentNullException(nameof(source));
             if (source.Any(row => row.Length != source.First().Length)) throw new ArgumentException(nameof(source));
 
             M = source.Count();
@@ -42,14 +42,11 @@ namespace Matrices.Infrastructure.Models
 
                 for (int i = 0; i < M; i++, enumerator.MoveNext())
                 {
-                    _source[i] = new double[N];
-
-                    for (int j = 0; j < N; j++)
+                    if (enumerator.Current != null)
                     {
-                        if (enumerator.Current != null)
-                        {
-                            _source[i][j] = enumerator.Current[j];
-                        }
+                        _source[i] = new double[N];
+
+                        enumerator.Current.CopyTo(_source[i], 0);
                     }
                 }
             }
@@ -58,7 +55,7 @@ namespace Matrices.Infrastructure.Models
         public int M { get; }
 
         public int N { get; }
-
+        
         public virtual double this[int i, int j]
         {
             get
@@ -92,29 +89,31 @@ namespace Matrices.Infrastructure.Models
             return Operation.Equals(this, matrix);
         }
 
+        public abstract object Clone();
+
         public static Matrix operator +(Matrix matrixA, Matrix matrixB)
         {
-            return Calculator.Add(matrixA, matrixB);
+            return Operation.Add(matrixA, matrixB);
         }
 
         public static Matrix operator -(Matrix matrixA, Matrix matrixB)
         {
-            return Calculator.Subtract(matrixA, matrixB);
+            return Operation.Subtract(matrixA, matrixB);
         }
 
         public static Matrix operator *(Matrix matrixA, double number)
         {
-            return Calculator.Multiply(matrixA, number);
+            return Operation.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(double number, Matrix matrixA)
         {
-            return Calculator.Multiply(matrixA, number);
+            return Operation.Multiply(matrixA, number);
         }
 
         public static Matrix operator *(Matrix matrixA, Matrix matrixB)
         {
-            return Calculator.Multiply(matrixA, matrixB);
+            return Operation.Multiply(matrixA, matrixB);
         }
 
         public static bool operator ==(Matrix matrixA, Matrix matrixB)

@@ -1,5 +1,6 @@
 ﻿using System;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Interfaces;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Extensions;
 using Matrices.Infrastructure.Operations.Interfaces;
 
@@ -7,13 +8,20 @@ namespace Matrices.Infrastructure.Operations.Implementation
 {
     internal class Multiplication : IMultiplication
     {
+        private readonly IMatrixFactory _matrixFactory;
+
+        public Multiplication(IMatrixFactory matrixFactory)
+        {
+            _matrixFactory = matrixFactory ?? throw new ArgumentNullException(nameof(matrixFactory));
+        }
+
         public Matrix Multiply(Matrix matrixA, double number)
         {
             if (matrixA == null) throw new ArgumentNullException(nameof(matrixA));
 
             int m = matrixA.M;
             int n = matrixA.N;
-            var matrixB = new Matrix(m, n);
+            var matrixB = _matrixFactory.CreateMatrix(m, n);
 
             matrixB.ForEach((i, j) => matrixA[i, j] * number);
 
@@ -30,7 +38,7 @@ namespace Matrices.Infrastructure.Operations.Implementation
             int m = matrixA.M;
             int n = matrixA.N;
             int k = matrixB.N;
-            var matrixC = new Matrix(m, k);
+            var matrixC = _matrixFactory.CreateMatrix(m, k);
 
             matrixC.ForEach((i, j) =>
             {

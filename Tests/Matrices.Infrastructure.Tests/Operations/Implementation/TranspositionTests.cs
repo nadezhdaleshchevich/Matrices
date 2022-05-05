@@ -1,48 +1,57 @@
 ﻿using System;
 using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Interfaces;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
+using Moq;
 using Xunit;
 
 namespace Matrices.Infrastructure.Tests.Operations.Implementation
 {
     public class TranspositionTests
     {
-        private readonly Transposition  _transposition = new Transposition();
+        private readonly Transposition _transposition;
+
+        private readonly Mock<IMatrixFactory> _mockMatrixFactory = new Mock<IMatrixFactory>();
+
+        public TranspositionTests()
+        {
+            _mockMatrixFactory
+                .Setup(m => m.CreateMatrix(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns((int m, int n) => new RectangularMatrix(m, n));
+
+            _transposition = new Transposition(
+                _mockMatrixFactory.Object);
+        }
 
         [Fact]
         public void Transpose_When_MatrixIsNull_Throws_ArgumentNullException()
         {
             Matrix matrixA = null;
 
-            Func<Matrix> func = () => _transposition.Transpose(matrixA);
+            Action action = () => _transposition.Transpose(matrixA);
 
-            Assert.Throws<ArgumentNullException>(() => func());
+            Assert.Throws<ArgumentNullException>(action);
         }
 
         [Theory]
-        [MemberData(nameof(MatrixIsValidData))]
-        public void Transpose_When_MatrixIsValid_Returns_TransformedMatrix(Matrix matrixA, Matrix expected)
+        [MemberData(nameof(Matrices))]
+        public void Transpose_When_MatrixIsValid_Returns_TransposedMatrix_MatrixFactoryAreCalled(Matrix matrixA)
         {
             var actual = _transposition.Transpose(matrixA);
 
             Assert.NotNull(actual);
-            Assert.Equal(expected, actual, new MatrixEqualityComparer());
+            Assert.NotSame(matrixA, actual);
+
+            _mockMatrixFactory
+                .Verify(m => m.CreateMatrix(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
 
-        public static IEnumerable<object[]> MatrixIsValidData()
+        public static IEnumerable<object[]> Matrices()
         {
-            yield return new object[]
-            {
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
-                new Matrix(new double[][] {new double[] {1, 3, 5}, new double[] {2, 4, 6} }),
-            };
-
-            yield return new object[]
-            {
-                new Matrix(new double[][] {new double[] {-1, 1, 1}, new double[] {2, -2, 2}, new double[] {3, 3, -3}}),
-                new Matrix(new double[][] {new double[] {-1, 2, 3}, new double[] {1, -2, 3}, new double[] {1, 2, -3}}),
-            };
+            yield return new object[] { new RectangularMatrix(3, 1) };
+            yield return new object[] { new RectangularMatrix(5, 2) };
+            yield return new object[] { new SquareMatrix(7) };
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Matrices.Infrastructure.Core.Models;
 
-namespace Matrices.Infrastructure.Tests.Operations.Implementation.Data
+namespace Matrices.Infrastructure.IntegrationTests.Operations.Data
 {
     public static class DeterminantCalculatorData
     {

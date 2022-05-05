@@ -1,5 +1,5 @@
 ﻿using System;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 
 namespace Matrices.Infrastructure.Operations.Extensions
 {

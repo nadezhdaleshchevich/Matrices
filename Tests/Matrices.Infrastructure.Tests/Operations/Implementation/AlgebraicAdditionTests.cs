@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Xunit;
 
@@ -17,9 +17,9 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
             int row = 1;
             int column = 1;
 
-            Func<Matrix> func = () => _algebraicAddition.Create(matrixA, row, column);
+            Action action = () => _algebraicAddition.Create(matrixA, row, column);
 
-            Assert.Throws<ArgumentNullException>(() => func());
+            Assert.Throws<ArgumentNullException>(action);
         }
 
         [Theory]
@@ -31,9 +31,9 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
             int row = 1;
             int column = 1;
 
-            Func<Matrix> func = () => _algebraicAddition.Create(matrixA, row, column);
+            Action action = () => _algebraicAddition.Create(matrixA, row, column);
 
-            Assert.Throws<ArgumentException>(() => func());
+            Assert.Throws<ArgumentException>(action);
         }
 
         [Theory]
@@ -43,9 +43,9 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
         {
             SquareMatrix matrixA = new SquareMatrix(n);
 
-            Func<Matrix> func = () => _algebraicAddition.Create(matrixA, row, column);
+            Action action = () => _algebraicAddition.Create(matrixA, row, column);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => func());
+            Assert.Throws<ArgumentOutOfRangeException>(action);
         }
 
         [Theory]

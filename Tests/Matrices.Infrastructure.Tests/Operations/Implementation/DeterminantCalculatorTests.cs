@@ -1,5 +1,5 @@
 ﻿using System;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Matrices.Infrastructure.Operations.Interfaces;
 using Moq;
@@ -34,32 +34,40 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
 
         private void SetupMock()
         {
-            _mockDeterminantFor1X1Calculator.Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
+            _mockDeterminantFor1X1Calculator
+                .Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
                 .Returns(0);
 
-            _mockDeterminantFor2X2Calculator.Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
+            _mockDeterminantFor2X2Calculator
+                .Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
                 .Returns(0);
 
-            _mockDeterminantFor3X3Calculator.Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
+            _mockDeterminantFor3X3Calculator
+                .Setup(m => m.Calculate(It.IsAny<SquareMatrix>()))
                 .Returns(0);
 
-            _mockAlgebraicAddition.Setup(m => m.Create(It.IsAny<SquareMatrix>(), It.IsAny<int>(), It.IsAny<int>()))
+            _mockAlgebraicAddition
+                .Setup(m => m.Create(It.IsAny<SquareMatrix>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns((SquareMatrix matrix, int row, int column) => new SquareMatrix(matrix.N - 1));
         }
 
         [Fact]
-        public void Calculate_When_MatrixIsNull_Throws_ArgumentNullException()
+        public void Calculate_When_MatrixIsNull_Throws_ArgumentNullException_ServicesAreNotCalled()
         {
             SquareMatrix matrixA = null;
 
-            Func<double> func = () => _determinantCalculator.Calculate(matrixA);
+            Action action = () => _determinantCalculator.Calculate(matrixA);
 
-            Assert.Throws<ArgumentNullException>(() => func());
+            Assert.Throws<ArgumentNullException>(action);
 
-            _mockDeterminantFor1X1Calculator.Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
-            _mockDeterminantFor2X2Calculator.Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
-            _mockDeterminantFor3X3Calculator.Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
-            _mockAlgebraicAddition.Verify(m => m.Create(It.IsAny<SquareMatrix>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            _mockDeterminantFor1X1Calculator
+                .Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
+            _mockDeterminantFor2X2Calculator
+                .Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
+            _mockDeterminantFor3X3Calculator
+                .Verify(m => m.Calculate(It.IsAny<SquareMatrix>()), Times.Never);
+            _mockAlgebraicAddition
+                .Verify(m => m.Create(It.IsAny<SquareMatrix>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
         }
 
         [Fact]

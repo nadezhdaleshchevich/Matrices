@@ -1,5 +1,5 @@
 ﻿using System;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Matrices.Infrastructure.Tests.Operations.Implementation.Data;
 using Xunit;
@@ -15,9 +15,9 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
         {
             SquareMatrix matrixA = null;
 
-            Func<double> func = () => _determinantFor3X3Calculator.Calculate(matrixA);
+            Action action = () => _determinantFor3X3Calculator.Calculate(matrixA);
 
-            Assert.Throws<ArgumentNullException>(() => func());
+            Assert.Throws<ArgumentNullException>(action);
         }
 
         [Theory]
@@ -28,9 +28,9 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
         {
             var matrixA = new SquareMatrix(n);
 
-            Func<double> func = () => _determinantFor3X3Calculator.Calculate(matrixA);
+            Action action = () => _determinantFor3X3Calculator.Calculate(matrixA);
 
-            Assert.Throws<ArgumentException>(() => func());
+            Assert.Throws<ArgumentException>(action);
         }
 
         [Theory]

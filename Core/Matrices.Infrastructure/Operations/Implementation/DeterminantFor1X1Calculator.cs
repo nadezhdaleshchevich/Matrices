@@ -1,5 +1,5 @@
 ﻿using System;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Interfaces;
 
 namespace Matrices.Infrastructure.Operations.Implementation

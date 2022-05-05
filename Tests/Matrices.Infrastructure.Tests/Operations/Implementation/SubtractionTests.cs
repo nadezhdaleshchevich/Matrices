@@ -1,58 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Interfaces;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Matrices.Infrastructure.Tests.Operations.Implementation.Data;
+using Moq;
 using Xunit;
 
 namespace Matrices.Infrastructure.Tests.Operations.Implementation
 {
     public class SubtractionTests
     {
-        private readonly Subtraction _subtraction = new Subtraction();
+        private readonly Subtraction _subtraction;
+
+        private readonly Mock<IMatrixFactory> _mockMatrixFactory = new Mock<IMatrixFactory>();
+
+        public SubtractionTests()
+        {
+            _mockMatrixFactory
+                .Setup(m => m.CreateMatrix(It.IsAny<int>(), It.IsAny<int>()))
+                .Returns((int m, int n) => new RectangularMatrix(m, n));
+
+            _subtraction = new Subtraction(
+                _mockMatrixFactory.Object);
+        }
 
         [Theory]
         [MemberData(nameof(OperationData.ArgumentNullExceptionData), MemberType = typeof(OperationData))]
         public void Subtract_When_AnyMatrixIsNull_Throws_ArgumentNullException(Matrix matrixA, Matrix matrixB)
         {
-            Func<Matrix> func = () => _subtraction.Subtract(matrixA, matrixB);
+            Action action = () => _subtraction.Subtract(matrixA, matrixB);
 
-            Assert.Throws<ArgumentNullException>(func);
+            Assert.Throws<ArgumentNullException>(action);
         }
 
         [Theory]
         [MemberData(nameof(OperationData.MatricesWithDifferentSizes), MemberType = typeof(OperationData))]
-        public void Subtract_When_SizesAreNotEqual_Throws_ArgumentException(Matrix matrixA, Matrix matrixB)
+        public void Subtract_When_MatrixSizesAreDifferent_Throws_ArgumentException(Matrix matrixA, Matrix matrixB)
         {
-            Func<Matrix> func = () => _subtraction.Subtract(matrixA, matrixB);
+            Action action = () => _subtraction.Subtract(matrixA, matrixB);
 
-            Assert.Throws<ArgumentException>(func);
+            Assert.Throws<ArgumentException>(action);
         }
 
         [Theory]
-        [MemberData(nameof(MatrixSubtractionData))]
-        public void Subtract_When_MatrixAAndMatrixBIsValid_ReturnsMatrixC(Matrix matrixA, Matrix matrixB, Matrix expected)
+        [MemberData(nameof(OperationData.MatricesWithSameSizes), MemberType = typeof(OperationData))]
+        public void Subtract_When_MatrixSizesAreSame_Returns_NewMatrix_MatrixFactoryAreCalled(Matrix matrixA, Matrix matrixB)
         {
-            var matrixC = _subtraction.Subtract(matrixA, matrixB);
+            var actual = _subtraction.Subtract(matrixA, matrixB);
 
-            Assert.NotNull(matrixC);
-            Assert.Equal(expected, matrixC, new MatrixEqualityComparer());
-        }
+            Assert.NotNull(actual);
+            Assert.NotSame(matrixA, actual);
+            Assert.NotSame(matrixB, actual);
 
-        public static IEnumerable<object[]> MatrixSubtractionData()
-        {
-            yield return new object[]
-            {
-                new Matrix(new double[][] {new double[] {10, 9}, new double[] {8, 6}, new double[] {2, 8}}),
-                new Matrix(new double[][] {new double[] {3, 10}, new double[] {5, 8}, new double[] {1, 1}}),
-                new Matrix(new double[][] {new double[] {7, -1}, new double[] {3, -2}, new double[] {1, 7}})
-            };
-            yield return new object[]
-            {
-                new Matrix(new double[][] {new double[] {10, 10, 10}, new double[] {10, 10, 10}, new double[] {10, 10, 10}}),
-                new Matrix(new double[][] {new double[] {1, 2, 3}, new double[] {1, 2, 3}, new double[] {1, 2, 3}}),
-                new Matrix(new double[][] {new double[] {9, 8, 7}, new double[] {9, 8, 7}, new double[] {9, 8, 7}})
-            };
+            _mockMatrixFactory
+                .Verify(m => m.CreateMatrix(It.IsAny<int>(), It.IsAny<int>()), Times.Once);
         }
     }
 }

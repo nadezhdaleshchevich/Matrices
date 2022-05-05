@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 
 namespace Matrices.Infrastructure.Operations.Implementation
 {

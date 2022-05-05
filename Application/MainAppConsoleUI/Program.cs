@@ -1,6 +1,6 @@
 ﻿using System;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Extensions;
-using Matrices.Infrastructure.Models;
 
 namespace MainAppConsoleUI
 {
@@ -23,7 +23,7 @@ namespace MainAppConsoleUI
 
         static void Main(string[] args)
         {
-            var matrixA = new Matrix(
+            var matrixA = new RectangularMatrix(
                 new double[3][]
                 {
                     new double[] {1, 2},

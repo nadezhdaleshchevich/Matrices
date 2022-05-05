@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+﻿using System.Collections.Generic;
+using Matrices.Infrastructure.Core.Models;
+using Matrices.Infrastructure.IntegrationTests.Operations.Data;
 using Matrices.Infrastructure.Operations.Implementation;
-using Matrices.Infrastructure.Tests.Operations.Implementation.Data;
 using Xunit;
 
-namespace Matrices.Infrastructure.Tests.Operations.Implementation
+namespace Matrices.Infrastructure.IntegrationTests.Operations
 {
     public class DeterminantCalculatorIntegrationTests
     {
@@ -19,17 +18,7 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
                 new DeterminantFor3X3Calculator(),
                 new AlgebraicAddition());
         }
-
-        [Fact]
-        public void Calculate_When_MatrixIsNull_Throws_ArgumentNullException()
-        {
-            SquareMatrix matrixA = null;
-
-            Func<double> func = () => _determinantCalculator.Calculate(matrixA);
-
-            Assert.Throws<ArgumentNullException>(() => func());
-        }
-
+        
         [Theory]
         [MemberData(nameof(DeterminantCalculatorData.Matrix1X1Data), MemberType = typeof(DeterminantCalculatorData))]
         [MemberData(nameof(DeterminantCalculatorData.Matrix2X2Data), MemberType = typeof(DeterminantCalculatorData))]
@@ -46,12 +35,12 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
         {
             yield return new object[]
             {
-                new SquareMatrix(new double[][] {new double[] {1, 9, 7, 2}, new double[] {7, -3, 3, 2}, new double[] {4, 8, 2, 5}, new double[] {4, 2, 9, 5}}),
+                new SquareMatrix(new [] {new double[] {1, 9, 7, 2}, new double[] {7, -3, 3, 2}, new double[] {4, 8, 2, 5}, new double[] {4, 2, 9, 5}}),
                 2010
             };
             yield return new object[]
             {
-                new SquareMatrix(new double[][] {new double[] {1, 9, 7, 2, 4}, new double[] {7, -3, 3, 2, 0}, new double[] {4, 8, 2, 5, 3}, new double[] {4, 2, 9, 5, 9}, new double[] {5, 7, 1, 2, 4}}),
+                new SquareMatrix(new [] {new double[] {1, 9, 7, 2, 4}, new double[] {7, -3, 3, 2, 0}, new double[] {4, 8, 2, 5, 3}, new double[] {4, 2, 9, 5, 9}, new double[] {5, 7, 1, 2, 4}}),
                 12800
             };
         }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Matrices.Infrastructure.Models;
+using Matrices.Infrastructure.Core.Models;
 using Matrices.Infrastructure.Operations.Implementation;
 using Moq;
 using Xunit;
@@ -31,56 +31,56 @@ namespace Matrices.Infrastructure.Tests.Operations.Implementation
             };
             yield return new object[]
             {
-                new Matrix(5, 3),
+                new RectangularMatrix(5, 3),
                 null,
                 false
             };
             yield return new object[]
             {
                 null,
-                new Matrix(3, 2),
+                new RectangularMatrix(3, 2),
                 false
             };
             yield return new object[]
             {
-                new Matrix(3, 3),
+                new RectangularMatrix(3, 3),
                 new SquareMatrix(3),
                 false
             };
             yield return new object[]
             {
-                new Matrix(3, 2),
-                new Matrix(3, 3),
+                new RectangularMatrix(3, 2),
+                new RectangularMatrix(3, 3),
                 false
             };
             yield return new object[]
             {
-                new Matrix(3, 2),
-                new Matrix(3, 2),
+                new RectangularMatrix(3, 2),
+                new RectangularMatrix(3, 2),
                 true
             };
             yield return new object[]
             {
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
                 true
             };
             yield return new object[]
             {
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
-                new Matrix(new double[][] {new double[] {0.9, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {0.9, 2}, new double[] {3, 4}, new double[] {5, 6}}),
                 false
             };
             yield return new object[]
             {
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
-                new Matrix(new double[][] {new double[] {0.99999999999, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {0.99999999999, 2}, new double[] {3, 4}, new double[] {5, 6}}),
                 false
             };
             yield return new object[]
             {
-                new Matrix(new double[][] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
-                new Matrix(new double[][] {new double[] { 0.999999999999, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] {1, 2}, new double[] {3, 4}, new double[] {5, 6}}),
+                new RectangularMatrix(new [] {new double[] { 0.999999999999, 2}, new double[] {3, 4}, new double[] {5, 6}}),
                 true
             };
         }
